@@ -1,0 +1,32 @@
+.padre {
+    padding: 4% 0;
+ }
+.titulo {
+    padding: 5% 0;
+    text-align: center;
+    background: #0c7e61;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .titulo:after {
+    content: '\A';
+    white-space: pre;
+}
+  .sub-titulo {  
+    padding: 5% 0;
+    background: #0c7e61;
+    display: inline-block;
+    font-size: 1rem;   
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    margin-top: 2rem;
+  }
+  .hijo {
+    padding: 5% 0;
+  }

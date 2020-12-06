@@ -1,0 +1,48 @@
+  .text-form{
+    font-family: helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.4pt;
+    word-spacing: 0pt;
+  }
+  .boton-ancho{
+    width: 100% !important;
+    height: auto !important;
+    margin: 0;
+    text-decoration:none;
+    font-weight: 600;
+  }
+  .btn-circle {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    padding: 0;
+    border-radius: 50%;
+  }
+  
+  .btn-circle i {
+    position: relative;
+    top: -1px;
+  }
+  
+  .btn-circle-sm {
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .btn-circle-lg {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    font-size: 1.1rem;
+  }
+  
+  .btn-circle-xl {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 1.3rem;
+  }
