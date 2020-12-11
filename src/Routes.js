@@ -17,6 +17,7 @@ const waitFor = Tag => props => <Tag {...props} />;
 //PAGINAS
 const Login = lazy(() => import('./pages/Login'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Logout = lazy(() => import('./pages/Logout'));
 /* const Register = lazy(() => import('./components/Pages/Register'));
 const Recover = lazy(() => import('./components/Pages/Recover'));
 const Lock = lazy(() => import('./components/Pages/Lock'));
@@ -29,33 +30,42 @@ const EnviarDocumento = lazy(() => import('./modulos/enviar-documento/index'));
 const RecibirDocumento = lazy(() => import('./modulos/recibir-documento/index'));
 const TerminarDocumento = lazy(() => import('./modulos/terminar-documento/index'));
 const MisDocumentos = lazy(() => import('./modulos/mis-documentos/index'));
+const Usuario = lazy(() => import('./modulos/usuario/index'));
+const Departamento = lazy(() => import('./modulos/departamento/index'));
+const TipoDocumento = lazy(() => import('./modulos/tipo-documento/index'));
+const Documentos = lazy(() => import('./modulos/documento/index'));
+const Presentacion = lazy(() => import('./modulos/presentacion/index'));
+const VerEstados = lazy(() => import('./modulos/ver-estado/index'));
+const BuscarDocumentoDepartamento = lazy(() => import('./modulos/buscar-departamento/index'));
+const BuscarDocumentoUsuario = lazy(() => import('./modulos/buscar-usuario/index'));
+const BuscarDocumentoCodigo = lazy(() => import('./modulos/buscar-codigo/index'));
 
 
 
 
-const PrivateRoute = ({ component: Component, auth, perfil, ...rest}) => {
-    if(auth === null){
-        return(
+const PrivateRoute = ({ component: Component, auth, perfil, ...rest }) => {
+    if (auth === null) {
+        return (
             <Redirect to={{
                 pathname: '/login',
             }} />
         )
-    }else{  
+    } else {
         let perfil_user = auth.usuario_tipo;
-        if(perfil.includes(perfil_user)){
-            return(
+        if (perfil.includes(perfil_user)) {
+            return (
                 <Route {...rest} render={(props) => (
                     <Component {...props} />
                 )} />
             )
-        }else{
+        } else {
             return (<Redirect to={{
                 pathname: '/not-found',
             }} />
             )
         }
 
-        
+
     }
 }
 
@@ -68,13 +78,14 @@ const PrivateRoute = ({ component: Component, auth, perfil, ...rest}) => {
 // depending on the current pathname
 const listofPages = [
     '/login',
-    '/not-found'
+    '/not-found',
+    '/logout'
 ];
 
 const Routes = (props) => {
 
     let user = localStorage.getItem("user");
-    user = (user === "undefined" || user === undefined)?null:JSON.parse(user);
+    user = (user === "undefined" || user === undefined) ? null : JSON.parse(user);
 
     const currentKey = props.location.pathname.split('/')[1] || '/';
     const timeout = { enter: 500, exit: 500 };
@@ -88,16 +99,17 @@ const Routes = (props) => {
 
     if (props.location.pathname === "/") {
         props.location.pathname = "/login"
-    }       
+    }
     if (listofPages.indexOf(props.location.pathname) > -1) {
         return (
             // Page Layout component wrapper
             <BasePage>
                 <Suspense fallback={<PageLoader />}>
                     <Switch location={props.location}>
-                        <Route path="/login" component={waitFor(Login)} /> 
-                        <Route exact path="/not-found" component={waitFor(NotFound)} />    
-                       {/*  <Route path="/logout" component={waitFor(Logout)} />  */}             
+                        <Route path="/login" component={waitFor(Login)} />
+                        <Route exact path="/not-found" component={waitFor(NotFound)} />
+                        <Route exact path="/logout" component={waitFor(Logout)} />
+
                     </Switch>
                 </Suspense>
             </BasePage>
@@ -118,19 +130,19 @@ const Routes = (props) => {
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/enviar-documento" component={waitFor(EnviarDocumento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/recibir-documento" component={waitFor(RecibirDocumento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/terminar-documento" component={waitFor(TerminarDocumento)} />
+                                    <PrivateRoute exact auth={user} perfil={["ADMINISTRADOR"]} path="/ver-estados/:id_documento" component={waitFor(VerEstados)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/mis-documentos" component={waitFor(MisDocumentos)} />
-                  
-                                  {/*   <Route path="/administracion/centro-costo" component={waitFor(CentroCosto)} />
-                                    <Route path="/administracion/cliente" component={waitFor(Cliente)} />     
-                                    <Route path="/administracion/proveedor" component={waitFor(Proveedor)} />     
-                                    <Route path="/administracion/estado" component={waitFor(Estado)} />     
-                                    <Route path="/administracion/solicitud" component={waitFor(Solicitud)} />                
-                                    <Route path="/administracion/cotizacion" component={waitFor(Cotizacion)} />      */}           
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/usuario" component={waitFor(Usuario)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/departamento" component={waitFor(Departamento)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/tipo-documento" component={waitFor(TipoDocumento)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/documentos" component={waitFor(Documentos)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/presentacion" component={waitFor(Presentacion)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-departamento" component={waitFor(BuscarDocumentoDepartamento)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-usuario" component={waitFor(BuscarDocumentoUsuario)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-codigo" component={waitFor(BuscarDocumentoCodigo)} />
 
-
-                                {/*     <Route exact path="/administracion/centro-costos/proyecto/:id" component={waitFor(Proyecto)} />                                   
-                                    <Route exact path="/administracion/proyecto/crear-proyecto/:id" component={waitFor(CrearProyecto)} /> */}
                                 
+                                    <Redirect to="/404" />
                                 </Switch>
                             </Suspense>
                         </div>

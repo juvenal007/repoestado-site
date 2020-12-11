@@ -124,7 +124,7 @@
     "screenfull": "3.3.3",
     "simple-line-icons": "2.4.1",
     "spinkit": "1.2.5",
-    "sweetalert": "2.1.2",
+    "sweetalert": "^2.1.2",
     "sweetalert2": "^10.10.0",
     "toastr": "^2.1.4",
     "uuid": "^8.3.1",

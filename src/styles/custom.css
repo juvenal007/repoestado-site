@@ -126,16 +126,16 @@
   background-color: #464646;
 } */
 
-.margin-login{
-    margin: 20px !important;
-    border: 0px;
+.margin-login {
+  margin: 20px !important;
+  border: 0px;
 }
 
-.column-rut{
+.column-rut {
   min-width: 80px;
 }
 
-.text-form{
+.text-form {
   font-family: helvetica, sans-serif;
   font-size: 20px;
   font-weight: bold;
@@ -151,11 +151,11 @@
 .bold {
   font-weight: bold;
 }
-.text-tittle-card{
+.text-tittle-card {
   color: black;
-  font-size: 1.2rem;  
+  font-size: 1.2rem;
 }
-.text-tittle{
+.text-tittle {
   color: black;
   font-family: helvetica, sans-serif;
   font-size: 1.8rem;
@@ -163,15 +163,16 @@
   letter-spacing: 0.4pt;
   word-spacing: 0pt;
 }
-.text-input{
+.text-input {
   font-weight: bold;
   font-size: 1rem;
   color: black;
 }
 .borde-grey {
-  border-style: dashed; 
+  border-style: dashed;
 }
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
   background-color: rgba(4, 114, 59, 0.171);
 }
 

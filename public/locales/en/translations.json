@@ -5,14 +5,34 @@
   "sidebar": {
     "WELCOME": "Welcome",
     "heading": {
-      "HEADER": "Main Navigation",
-      "COMPONENTS": "Components",
+      "HEADER": "Menu Principal",
+      "COMPONENTS": "Administración",
       "MORE": "More"
     },
     "nav": {
       "DASHBOARD": "Dashboard",
+      "ENVIAR": "ENVIAR",
+      "RECIBIR": "RECIBIR",
+      "TERMINAR": "TERMINAR",
+      "MIS_DOCUMENTOS": "MIS DOCUMENTOS",
       "WIDGETS": "Widgets",
       "DOCUMENTATION": "Documentation",
+      "mantenedores": {
+        "MANTENEDORES": "Mantenedores",
+        "USUARIO": "Usuario",
+        "DEPARTAMENTO": "Departamento",
+        "TIPO_DOCUMENTO": "Tipo Documento"
+      },
+      "busqueda_documentos": {
+        "BUSQUEDA_DOCUMENTOS": "Busqueda Documentos",
+        "BUSCAR_DEPARTAMENTO": "Departamento",
+        "BUSCAR_USUARIO": "Usuario",
+        "BUSCAR_CODIGO": "Código"
+      },
+      "reportes": {
+        "REPORTES": "Reportes",
+        "REPORTE_DOCUMENTO": "Reporte Documentos"
+      },
       "element": {
         "ELEMENTS": "Elements",
         "BUTTON": "Button",

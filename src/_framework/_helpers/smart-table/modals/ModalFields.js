@@ -19,7 +19,7 @@ import InputField from '../inputs-form/InputField';
 import SelectReact from '../inputs-form/SelectReact';
 import InputDate from '../inputs-form/InputDate';
 import InputSwitch from '../inputs-form/InputSwitch';
-
+import swal from 'sweetalert';
 import moment from 'moment';
 
 import GetApiData from '../../../../utils/api/index';
@@ -332,17 +332,17 @@ class ModalFields extends Component {
 
         this.handleRefresh(true);
 
-        GetApiData(url, 'POST', data, (status, data, msg, re) => {
-            console.log(status, data, msg, re);
+        GetApiData(url, 'POST', data, (status, data, message, re) => {
+            console.log(status, data, message, re);
             if (status) {
                 // Emitimos el mensaje de que todo esta ok
 
                 const msgSuccess = () => {
-                    Swal.fire(
-                        'Good job!',
-                        'You clicked the button!',
-                        'success'
-                    )
+                    swal({
+                        title: "Correcto",
+                        text: message,
+                        icon: "success"
+                     })
                 }
 
                 this.props.onSucceess(msgSuccess);
@@ -358,7 +358,7 @@ class ModalFields extends Component {
                 } else {
                     this.setState({
                         hasErrors: true,
-                        msgErrors: msg,
+                        msgErrors: message,
                         typeError: 2
                     });
                 }

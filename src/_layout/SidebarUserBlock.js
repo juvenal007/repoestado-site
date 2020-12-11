@@ -30,8 +30,8 @@ class SidebarUserBlock extends Component {
                        </div>
                        {/* Name and Job */}
                        <div className="user-block-info">
-                          <span className="user-block-name">Hello, {this.props.name}</span>
-                          <span className="user-block-role">{this.props.perfil}</span>
+                          <span className="user-block-name">Juvenal Salas</span>
+                          <span className="user-block-role">Administrador</span>
                        </div>
                     </div>
                 </div>

@@ -17,6 +17,8 @@ import GetApiData from '../../../../utils/api/index';
 import { conditionsValidator } from './SmartTable.fn';
 
 
+import { v4 } from "uuid";
+
 
 // Datatables
 require('datatables.net-bs')
@@ -702,7 +704,7 @@ class SmartTable extends Component {
                                                         case 'event':
                                                             return (
                                                                 <span key={ind}>
-                                                                <ToolTip idelement={'event'} placement={'top'} content={it_act.title}>
+                                                                <ToolTip id={v4()} idelement={'event'} placement={'top'} content={it_act.title}>
                                                                     <button
                                                                         onClick={(e) => this.eventCustom(e,it_act,item,i)}
                                                                         className={'text-white btn-table btn btn-xs btn-'+it_act.color}>
@@ -714,7 +716,7 @@ class SmartTable extends Component {
                                                         case 'external':
                                                             return (
                                                                 <span key={ind}>
-                                                                <ToolTip idelement={'event'} placement={'top'} content={it_act.title}>
+                                                                <ToolTip id={v4()} idelement={'event'} placement={'top'} content={it_act.title}>
                                                                     <a 
                                                                         href={`${it_act.path}/${idFk}`}
                                                                         target="_blank"
@@ -728,7 +730,7 @@ class SmartTable extends Component {
                                                         default:
                                                             return (
                                                                 <span key={ind}>
-                                                                <ToolTip idelement={'event'} placement={'top'} content={it_act.title}>
+                                                                <ToolTip id={v4()} idelement={'event'} placement={'top'} content={it_act.title}>
                                                                     <Link
                                                                         to={it_act.path+`/${idFk}`} 
                                                                         className={'btn-table btn btn-xs btn-'+it_act.color}>
@@ -746,13 +748,13 @@ class SmartTable extends Component {
                                             {this.props.edit_btn.hasOwnProperty('condition') && !conditionsValidator(this.props.edit_btn.condition, item)?(""):
                                             this.props.edit_btn.hasOwnProperty('show') && !this.props.edit_btn.show ?
                                             (''):this.props.edit_btn.hasOwnProperty('modal') && !this.props.edit_btn.modal ? (
-                                                <ToolTip idelement={'edit'} placement={'top'} content={this.props.edit_btn.title}>
+                                                <ToolTip  id={v4()} idelement={'edit'} placement={'top'} content={this.props.edit_btn.title}>
                                                     <Link to={this.props.edit_btn.path+'/'+key_edit} className={'btn-table btn btn-xs btn-info'}>
                                                         {this.props.edit_btn.icon && <em className={this.props.edit_btn.icon}></em>}
                                                     </Link>
                                                 </ToolTip>
                                                 ): (
-                                                <ToolTip idelement={'edit'} placement={'top'} content={this.props.edit_btn.title}>
+                                                <ToolTip id={v4()} idelement={'edit'} placement={'top'} content={this.props.edit_btn.title}>
                                                     <button className='btn-table btn btn-xs btn-info text-white' 
                                                         onClick={(e) => this.handleClick(e, key_edit)}>
                                                         {this.props.edit_btn.icon && <em className={this.props.edit_btn.icon}></em>}
@@ -765,7 +767,7 @@ class SmartTable extends Component {
                                             {this.props.delete_btn.hasOwnProperty('condition') && !conditionsValidator(this.props.delete_btn.condition, item)?(""):
                                             this.props.delete_btn.hasOwnProperty('show') && !this.props.delete_btn.show ? 
                                             (""):(
-                                                <ToolTip idelement={'delete'} placement={'top'} content={this.props.delete_btn.title}>
+                                                <ToolTip id={v4()} idelement={'delete'} placement={'top'} content={this.props.delete_btn.title}>
                                                     <button 
                                                         onClick={(e) =>this.deleteClick(e, key_del)} 
                                                         className="btn-table btn btn-xs btn-warning text-white">

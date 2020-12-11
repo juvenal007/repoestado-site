@@ -1,6 +1,6 @@
 const Menu = [
     {
-        heading: 'Main Navigation',
+        heading: 'Menu Principal',
         translate: 'sidebar.heading.HEADER'
     },
     {
@@ -10,85 +10,106 @@ const Menu = [
         translate: 'sidebar.nav.HOME',
         path: '/home-principal'
     },
-    {       
-        path: '/dashboard',
+    {
+
         icon: 'fa fa-share',
-        translate: 'sidebar.nav.MENU',
-        path: '/enviar-documento', 
+        translate: 'sidebar.nav.ENVIAR',
+        path: '/enviar-documento',
         boton: {
             nombre: 'ENVIAR',
-            color:'success'
-        }     
-    },
-    {       
-        path: '/dashboard',
-        icon: 'fa fa-reply',
-        translate: 'sidebar.nav.MENU',
-        path: '/recibir-documento', 
-        boton: {
-            nombre: 'RECIBIR',
-            color:'warning'
-        }     
-    },
-    {       
-        path: '/dashboard',
-        icon: 'fa fa-handshake',
-        translate: 'sidebar.nav.MENU',
-        path: '/terminar-documento', 
-        boton: {
-            nombre: 'TERMINAR',
-            color:'danger'
-        }     
-    },
-    {       
-        path: '/dashboard',
-        icon: 'fa fa-handshake',
-        translate: 'sidebar.nav.MENU',
-        path: '/mis-documentos', 
-        boton: {
-            nombre: 'MIS DOCUMENTOS',
-            color:'info'
-        }     
+            color: 'success'
+        }
     },
     {
-        name: 'Administración',
+
+        icon: 'fa fa-reply',
+        translate: 'sidebar.nav.RECIBIR',
+        path: '/recibir-documento',
+        boton: {
+            nombre: 'RECIBIR',
+            color: 'warning'
+        }
+    },
+    {
+
+        icon: 'fa fa-handshake',
+        translate: 'sidebar.nav.TERMINAR',
+        path: '/terminar-documento',
+        boton: {
+            nombre: 'TERMINAR',
+            color: 'danger'
+        }
+    },
+    {
+        path: '/dashboard',
+        icon: 'fa fa-inbox',
+        translate: 'sidebar.nav.MIS_DOCUMENTOS',
+        path: '/mis-documentos',
+        boton: {
+            nombre: 'MIS DOCUMENTOS',
+            color: 'info'
+        }
+    },
+    {
+        heading: 'Administración',
+        translate: 'sidebar.heading.COMPONENTS'
+    },
+    {
+        name: 'Mantenedores',
         icon: 'fa fa-cubes',
-        translate: 'sidebar.nav.MENU',       
+        translate: 'sidebar.nav.mantenedores.MANTENEDORES',
         submenu: [
             {
                 name: 'Usuarios',
-                translate: 'sidebar.nav.SUBMENU',
-                path: '/administracion/centro-costo'
+                translate: 'sidebar.nav.mantenedores.USUARIO',
+                path: '/administracion/usuario'
             },
             {
                 name: 'Departamentos',
-                translate: 'sidebar.nav.SUBMENU',
-                path: '/administracion/cliente'
+                translate: 'sidebar.nav.mantenedores.DEPARTAMENTO',
+                path: '/administracion/departamento'
             },
             {
-                name: 'Documentos',
-                translate: 'sidebar.nav.SUBMENU',
-                path: '/administracion/proveedor'
-            },           
+                name: 'Tipo Documento',
+                translate: 'sidebar.nav.mantenedores.TIPO_DOCUMENTO',
+                path: '/administracion/tipo-documento'
+            },
+        ]
+    },
+    {
+        name: 'Busqueda Documentos',
+        icon: 'fa fa-search',
+        translate: 'sidebar.nav.busqueda_documentos.BUSQUEDA_DOCUMENTOS',
+        submenu: [
+            {
+                name: 'Departamento',
+                translate: 'sidebar.nav.busqueda_documentos.BUSCAR_DEPARTAMENTO',
+                path: '/administracion/buscar-departamento'
+            },
+            {
+                name: 'Usuario',
+                translate: 'sidebar.nav.busqueda_documento.BUSCAR_USUARIO',
+                path: '/administracion/buscar-usuario'
+            },
+            {
+                name: 'Código',
+                translate: 'sidebar.nav.busqueda_documentos.BUSCAR_CODIGO',
+                path: '/administracion/buscar-codigo'
+            },
         ]
     },
     {
         name: 'Reportes',
         icon: 'fa fa-calendar-check',
-        translate: 'sidebar.nav.MENU',
+        translate: 'sidebar.nav.reportes.REPORTES',
         submenu: [
             {
                 name: 'Solicitudes',
-                translate: 'sidebar.nav.SUBMENU',
-                path: '/administracion/solicitud'
-            },
-            {
-                name: 'Cotizaciones',
-                translate: 'sidebar.nav.SUBMENU',
-                path: '/administracion/cotizacion'
-            },
+                translate: 'sidebar.nav.reportes.REPORTE_DOCUMENTO',
+                path: '/administracion/reporte-documento'
+            },            
         ]
-    },   
+    },
 ];
 
 export default Menu;

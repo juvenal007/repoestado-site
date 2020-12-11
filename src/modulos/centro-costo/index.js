@@ -6,15 +6,7 @@ import getApi from '../../utils/api/index';
 
 const CentroCosto = () => {
 
-  /*   useEffect(()=> {
-        const getCentroCosto = async () => {
-            const url = `centro-costo`;
-            getApi(url, 'GET', null, res => {
-                console.log(res);
-            });          
-        }
-        getCentroCosto();
-    }, []); */
+ 
 
     return (
         <ContentWrapper>

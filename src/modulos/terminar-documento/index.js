@@ -5,24 +5,44 @@ import InputField from '../../_framework/_helpers/smart-table/inputs-form/InputF
 import Select from 'react-select';
 import getApi from '../../utils/api/index';
 
+import $ from 'jquery';
 import _ from 'lodash';
-import { toast } from 'react-toastify';
-
+import swal from 'sweetalert';
 
 //COMPONENTES
 
 import '../../styles/custom.css';
+import 'parsleyjs/dist/parsley.min.js';
+import 'parsleyjs/dist/i18n/es';
 
 const TerminarDocumento = () => {
 
    // STATE DEL COMPONENTE
    const [codigo, setCodigo] = useState('');
+   const [idForm] = useState('form-id-' + (new Date()).getTime());
 
+   // ################# ERRORES DE LA API state ############## //
+   const [msgErrors, setMsgErrors] = useState({});
+   const [hasErrors, setHasErrors] = useState(false);
+   const [typeError, setTypeError] = useState(1);
 
    const recibirDocumento = (e) => {
       setCodigo(e.target.value);
-   }  
- 
+   }
+
+
+   const instanceValid = () => {
+      const instance = $('#' + idForm).parsley({
+         errorsContainer: function (el) {
+            return el.$element.closest('.form-group');
+         },
+         errorClass: 'is-invalid',
+      });
+      instance.validate();
+      if (!instance.isValid())
+         return null;
+   }
+
    const onSubmit = (e) => {
       e.preventDefault();
 
@@ -33,13 +53,35 @@ const TerminarDocumento = () => {
          docu_codigo: codigo
       }
 
+      //VALIDAR DATOS  
+      instanceValid();
+
+      if (datos.docu_codigo.length === 0) {
+         swal({
+            title: 'Completar Datos',
+            text: 'Ingrese Código de documento',
+            icon: "error",
+         });
+         return null;
+      }
+
       const url = `estado/store/terminado`;
       getApi(url, 'POST', datos, (status, data, message, re) => {
-         console.log(status, data, message);
-         if (!status) {
-            return console.log(message);
+         console.log(status, data, message, re);
+         if (status) {
+            swal({
+               title: "Correcto",
+               text: message,
+               icon: "success"
+            });
+         } else {
+            swal({
+               title: "Error",
+               text: message,
+               icon: "error"
+            });
          }
-         console.log(re);      
+         setCodigo('');
       });
 
    }
@@ -60,17 +102,24 @@ const TerminarDocumento = () => {
                      </div>
                      <div className='container'>
                         <div className="card-body mt-0">
-                           <form onSubmit={onSubmit} className="form-horizontal">
+                           <form onSubmit={onSubmit} className="form-horizontal" id={idForm}>
                               <div className='container'>
                                  <FormGroup row>
                                     <label className="offset-xl-1 col-xl-1 col-form-label text-input">Código</label>
                                     <div className="col-xl-8">
-                                       <Input onChange={recibirDocumento} type="text" placeholder="Codigo documento" />
+                                       <InputField
+                                          onChange={recibirDocumento}
+                                          value={codigo}
+                                          type="text"
+                                          placeholder="Codigo documento"
+                                          isRequired={true}
+                                          autoFocus={true}
+                                       />
                                        <span className="form-text text-grey">Ingrese el código del documento.</span>
                                     </div>
                                  </FormGroup>
                                  <FormGroup row className='mb-2 justify-content-center'>
-                                  
+
                                     <div className="col-xl-6">
                                        <Button block className='text-bold mt-4' size="xl" onClick={onSubmit} color='danger'>Terminar Documento</Button>
                                     </div>

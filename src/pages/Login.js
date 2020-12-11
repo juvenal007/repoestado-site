@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Input, CustomInput } from 'reactstrap';
 import { toast } from 'react-toastify';
@@ -7,20 +7,37 @@ import 'parsleyjs/dist/parsley.min.js';
 
 import getApi from '../utils/api/index';
 
+
+
+
 class Login extends Component {
 
     state = {
         formLogin: {
             usuario: 'admin',
             password: 'admin'
-        }
+        },
+        show: true
+
     }
+
+    
 
      /**
       * Validate input using onChange event
       * @param  {String} formName The name of the form in the state object
       * @return {Function} a function used for the event
       */
+
+     cargaEstadosCodigo = () => {
+        if (!this.state.show) {
+          return `card card-flat whirl double-up`;
+    
+        }
+        else {
+          return 'card card-flat';
+        }
+      }
      componentDidMount() {
    
      }
@@ -49,7 +66,7 @@ class Login extends Component {
     onSubmit = e => {
 
         e.preventDefault();    
-
+        this.setState({show: false});
         let usuario = this.state.formLogin.usuario.toLowerCase().trim();
         let password = this.state.formLogin.password;
 
@@ -58,14 +75,9 @@ class Login extends Component {
         
         getApi(url, "LOGIN", { usuario, password }, (status, data, msg) => {
             console.log(status, data, msg);
-            if (status) {
-                toast("Login exitoso", {
-                    type: "success",
-                    position: "bottom-center"
-                });
-                setTimeout(() => {
-                    this.props.history.push(`home-principal`)
-                }, 1000);
+            if (status) {       
+                    this.setState({show: true});
+                    this.props.history.push(`home-principal`);               
             } else {
                 console.log(msg)
                 toast("Error en el proceso de login", {
@@ -88,15 +100,15 @@ class Login extends Component {
     
     render() {
         return (
-            <div className="block-center mt-4 wd-xl">
-                <div className="card card-flat">
+            <div className="block-center mt-5 wd-xl">
+                <div className={this.cargaEstadosCodigo()}>
                     <div className="card-header text-center bg-dark">
                         <a href="">
                             <img className="block-center rounded" src="img/logo.png" alt="Logo"/>
                         </a>
                     </div>
                     <div className="card-body">
-                        <p className="text-center py-2">SIGN IN TO CONTINUE.</p>
+                        <p className="text-center py-2">INICIAR SESIÓN.</p>
                         <form className="mb-3" name="formLogin" onSubmit={this.onSubmit}>
                             <div className="form-group">
                                 <div className="input-group with-focus">
@@ -112,8 +124,8 @@ class Login extends Component {
                                             <em className="fa fa-envelope"></em>
                                         </span>
                                     </div>
-                                    { this.hasError('formLogin','usuario','required') && <span className="invalid-feedback">Field is required</span> }
-                                    { this.hasError('formLogin','usuario') && <span className="invalid-feedback">Field must be valid username</span> }
+                                    { this.hasError('formLogin','usuario','required') && <span className="invalid-feedback">Campo requerido</span> }
+                                    { this.hasError('formLogin','usuario') && <span className="invalid-feedback">Username debe ser válido</span> }
                                 </div>
                             </div>
                             <div className="form-group">
@@ -133,32 +145,32 @@ class Login extends Component {
                                             <em className="fa fa-lock"></em>
                                         </span>
                                     </div>
-                                    <span className="invalid-feedback">Field is required</span>
+                                    <span className="invalid-feedback">Campo requerido</span>
                                 </div>
                             </div>
                             <div className="clearfix">
                                 <CustomInput type="checkbox" id="rememberme"
                                     className="float-left mt-0"
                                     name="remember"
-                                    label="Remember Me">
+                                    label="Recordar">
                                 </CustomInput>
                                 <div className="float-right">
-                                    <Link to="recover" className="text-muted">Forgot your password?</Link>
+                                    <Link to="recover" className="text-muted"></Link>
                                 </div>
                             </div>
-                            <button className="btn btn-block btn-primary mt-3" type="submit">Login</button>
+                            <button className="btn btn-block btn-primary mt-3" type="submit">Iniciar</button>
                         </form>
-                        <p className="pt-3 text-center">Need to Signup?</p>
-                        <Link to="register" className="btn btn-block btn-secondary">Register Now</Link>
+                       {/*  <p className="pt-3 text-center"></p>
+                        <Link to="register" className="btn btn-block btn-secondary"></Link> */}
                     </div>
                 </div>
                 <div className="p-3 text-center">
                     <span className="mr-2">&copy;</span>
                     <span>2020</span>
                     <span className="mx-2">-</span>
-                    <span>Angle</span>
+                    <span>RepoEstado v0.2</span>
                     <br/>
-                    <span>Bootstrap Admin Template</span>
+                    <span>Sistema documental.</span>
                 </div>
             </div>
         );

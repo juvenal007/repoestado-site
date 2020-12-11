@@ -197,17 +197,19 @@ const EnviarDocumento = () => {
       formData.set('destinatarios', JSON.stringify(destinatariosUsuarios));
 
       console.log(fileDoc);
-      getApi(url, 'MULTIPART', formData, (status, data, msg) => {
+      getApi(url, 'MULTIPART', formData, (status, data, message) => {
          
          if (status) {
             swal({
-               text: "SUCCESS",
+               title: "Aceptado.",        
+               text: message,
                icon: "success",
             });
             window.open(data.url_completa, "Diseño Web", "width=800, height=600");
          } else {
             swal({
-               text: "ERROR",
+               title: 'Error',
+               text: message,
                icon: "danger",
             });
          }
