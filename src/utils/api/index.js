@@ -1,10 +1,12 @@
 import axios from './axios';
 
+
 export default (url, type, parameters, callback, pureParameters = false) => {
-    let params = pureParameters?parameters:{data: parameters};
-    let access_token = localStorage.getItem('access_token')!==undefined?localStorage.getItem('access_token'):null;
+    let params = pureParameters ? parameters : { data: parameters };
+    let access_token = localStorage.getItem('access_token') !== undefined ? localStorage.getItem('access_token') : null;
     let header = {};
-    if(access_token!==null){
+
+    if (access_token !== null) {
         header = {
             headers: {
                 "Authorization": `Bearer ${access_token}`,
@@ -14,63 +16,77 @@ export default (url, type, parameters, callback, pureParameters = false) => {
 
     switch (type.toUpperCase()) {
         case 'GET':
-		    axios.get(url, header).then(res => {
+            axios.get(url, header).then(res => {
+                if (res.data.status === 'Token is Expired') {
+                    window.location = "/logout";
+                }
                 let re = res.data.response;
-                if(re.status)
+                console.log(res);                
+                if (re.status)
                     callback(re.status, re.data, re.message);
                 else
                     callback(re.status, re.data, re.message, re);
-			}).catch(err => {
-				console.log('ERROR_FETCH:', err);
-				const data = err.response.data.hasOwnProperty("response")?err.response.data.response.data:null;
-                const msg = err.response.data.hasOwnProperty("response")?err.response.data.response.message:err;
+            }).catch(err => {
+                console.log('ERROR_FETCH:', err);              
+                const data = err.response.data.hasOwnProperty("response") ? err.response.data.response.data : null;
+                const msg = err.response.data.hasOwnProperty("response") ? err.response.data.response.message : err;
+
                 callback(false, data, msg, err.response.data.response);
-			});
+            });
             break;
         case 'POST':
             axios.post(url, params, header).then(res => {
-                let re = res.data.response;
-                if(re.status)
+                if (res.data.status === 'Token is Expired') {
+                    window.location = "/logout";
+                }
+                let re = res.data.response;                
+                if (re.status)
                     callback(re.status, re.data, re.message);
                 else
                     callback(re.status, re.data, re.message, re);
             }).catch(err => {
                 console.log('ERROR_FETCH:', err);
-                if(err.hasOwnProperty("response")){
-                    const data = err.response.data.hasOwnProperty("response")?err.response.data.response.data:null;
-                    const msg = err.response.data.hasOwnProperty("response")?err.response.data.response.message:err;
+                if (err.hasOwnProperty("response")) {
+                    const data = err.response.data.hasOwnProperty("response") ? err.response.data.response.data : null;
+                    const msg = err.response.data.hasOwnProperty("response") ? err.response.data.response.message : err;
                     callback(false, data, msg, err.response.data.response);
-                }else{
+                } else {
                     callback(false, null, err, err);
                 }
-                
+
             });
             break;
         case 'PUT':
             axios.put(url, params, header).then(res => {
-                let re = res.data.response;
-                if(re.status)
+                if (res.data.status === 'Token is Expired') {
+                    window.location = "/logout";
+                }
+                let re = res.data.response;                
+                if (re.status)
                     callback(re.status, re.data, re.message);
                 else
                     callback(re.status, re.data, re.message, re);
             }).catch(err => {
                 console.log('ERROR_FETCH:', err);
-                const data = err.response.data.hasOwnProperty("response")?err.response.data.response.data:null;
-                const msg = err.response.data.hasOwnProperty("response")?err.response.data.response.message:err;
+                const data = err.response.data.hasOwnProperty("response") ? err.response.data.response.data : null;
+                const msg = err.response.data.hasOwnProperty("response") ? err.response.data.response.message : err;
                 callback(false, data, msg, err.response.data.response);
             });
             break;
         case 'DELETE':
             axios.delete(url, header).then(res => {
+                if (res.data.status === 'Token is Expired') {
+                    window.location = "/logout";
+                }
                 let re = res.data.response;
-                if(re.status)
+                if (re.status)
                     callback(re.status, re.data, re.message);
                 else
                     callback(re.status, re.data, re.message, re);
             }).catch(err => {
                 console.log('ERROR_FETCH:', err);
-                const data = err.response.data.hasOwnProperty("response")?err.response.data.response.data:null;
-                const msg = err.response.data.hasOwnProperty("response")?err.response.data.response.message:err;
+                const data = err.response.data.hasOwnProperty("response") ? err.response.data.response.data : null;
+                const msg = err.response.data.hasOwnProperty("response") ? err.response.data.response.message : err;
                 callback(false, data, msg, err.response.data.response);
             });
             break;
@@ -85,8 +101,8 @@ export default (url, type, parameters, callback, pureParameters = false) => {
                 callback(true, data, "Login exitoso!");
             }).catch(err => {
                 console.log('ERROR_FETCH:', err.response);
-                const data = err.response.data.hasOwnProperty("response")?err.response.data.response.data:null;
-                const msg = err.response.data.hasOwnProperty("response")?err.response.data.response.message:err;
+                const data = err.response.data.hasOwnProperty("response") ? err.response.data.response.data : null;
+                const msg = err.response.data.hasOwnProperty("response") ? err.response.data.response.message : err;
                 callback(false, data, msg, err.response.data.response);
             });
             break;
@@ -97,7 +113,7 @@ export default (url, type, parameters, callback, pureParameters = false) => {
                 localStorage.removeItem('access_token');
                 callback(true, null, "Fin de sesión!");
             }).catch(err => {
-                if(err.response.status === 401){
+                if (err.response.status === 401) {
                     localStorage.removeItem('user');
                     localStorage.removeItem('access_token');
                     callback(true, null, "Fin de sesión!");
@@ -117,15 +133,18 @@ export default (url, type, parameters, callback, pureParameters = false) => {
                     "Authorization": `Bearer ${access_token}`,
                 },
             }).then(res => {
+                if (res.data.status === 'Token is Expired') {
+                    window.location = "/logout";
+                }
                 let re = res.data.response;
-                if(re.status)
+                if (re.status)
                     callback(re.status, re.data, re.message);
                 else
                     callback(re.status, re.data, re.message, re);
             }).catch(err => {
                 console.log('ERROR_FETCH:', err);
-                const data = err.response.data.hasOwnProperty("response")?err.response.data.response.data:null;
-                const msg = err.response.data.hasOwnProperty("response")?err.response.data.response.message:err;
+                const data = err.response.data.hasOwnProperty("response") ? err.response.data.response.data : null;
+                const msg = err.response.data.hasOwnProperty("response") ? err.response.data.response.message : err;
                 callback(false, data, msg, err.response.data.response);
             });
             break;

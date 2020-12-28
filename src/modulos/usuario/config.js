@@ -43,15 +43,18 @@ const CONFIG = {
 			isRequired: true,
 		},
 		{
-			title: 'Tipo de Trabajo',
-			field: 'departamento_id',
-			field_description: 'departamento_id',
-			isRequired: true,
-			type: 'foreign',
-			list: {
-				id: '1',
-				label: 'opcion1'
-			}
+			title: 'Departamento',
+			field: 'departamento_txt',		
+			type: 'tags',
+			align: 'text-center',
+			color: 'info'
+		},
+		{
+			title: 'Tipo',
+			field: 'usuario_tipo',		
+			type: 'tags',
+			align: 'text-center',
+			color: 'dark'
 		},
 				
 	],
@@ -72,8 +75,9 @@ const CONFIG = {
 	add_btn:
 	{
 		title: 'Agregar Usuario',
-		path: config.USUARIO.add,
+		path: '/administracion/usuarios/agregar-usuario',
 		icon: 'icon-plus',
+		modal: false
 	},
 };
 

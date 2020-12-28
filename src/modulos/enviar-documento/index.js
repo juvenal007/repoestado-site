@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 //COMPONENTES
 
 import swal from 'sweetalert';
-import SmartTable from '../../_framework/_helpers/smart-table/table/SmartTable';
+
 
 const EnviarDocumento = () => {
 
@@ -47,7 +47,7 @@ const EnviarDocumento = () => {
 
    // ARCHIVO
    const [fileDoc, setFileDoc] = useState(undefined);
-   const [extension, setExtension] = useState('.pdf,.txt');
+   const [extension, setExtension] = useState('.pdf,.docx,.xlsx,.txt,.rar');
    const [labelFile, setLabelFile] = useState('Elegir Archivo');
    const [sizeFile, setSizeFile] = useState(0);
    const [fileName, setFileName] = useState('');

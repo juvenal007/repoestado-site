@@ -29,6 +29,7 @@ const CONFIG = {
 		path: config.TIPO_DOCUMENTO.edit,
 		field: 'id',
 		icon: 'icon-pencil',
+		show: false
 	},
 	delete_btn:
 	{
@@ -36,12 +37,14 @@ const CONFIG = {
 		path: config.TIPO_DOCUMENTO.delete,
 		field: 'id',
 		icon: 'icon-trash',
+		show: false
 	},
 	add_btn:
 	{
 		title: 'Agregar Tipo',
 		path: config.TIPO_DOCUMENTO.add,
 		icon: 'icon-plus',
+		show: false
 	},
 };
 

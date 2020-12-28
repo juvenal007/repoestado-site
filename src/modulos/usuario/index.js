@@ -1,15 +1,16 @@
-import React, {useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import ContentWrapper from '../../_layout/ContentWrapper';
 import SmartTable from '../../_framework/_helpers/smart-table/table/SmartTable';
 import config from './config';
 
 const Usuario = () => {
 
+   
     return (
         <ContentWrapper>
             <div className="content-heading">
-                <div>Usuarios</div>
-            </div>            
+            <div className='text-form text-tittle'>Usuarios</div>
+            </div>
             <SmartTable
                 dtColumns={config.columns}
                 edit_btn={config.edit_btn}

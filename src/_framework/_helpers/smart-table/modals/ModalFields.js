@@ -377,16 +377,17 @@ class ModalFields extends Component {
 
         this.handleRefresh(true);
 
-        GetApiData(url, 'PUT', data, (status, data, msg, re) => {
-            if (status) {
-                let msg = 'El Registro se Actualizó Correctamente';
+        GetApiData(url, 'PUT', data, (status, data, message, re) => {
+            if (status) {             
                 // Emitimos el mensaje de que todo esta ok
                 const msgSuccess = () => {
-                    toast(msg, {
-                        type: 'success',
-                        position: 'bottom-center'
-                    });
+                    swal({
+                        title: "Correcto.",        
+                        text: message,
+                        icon: "success",
+                     });
                 }
+                console.log('ACTUALIZANDO');
                 this.props.onSucceess(msgSuccess);
                 this.toggleModal();
             } else {
@@ -399,7 +400,7 @@ class ModalFields extends Component {
                 } else {
                     this.setState({
                         hasErrors: true,
-                        msgErrors: msg,
+                        msgErrors: message,
                         typeError: 2
                     });
                 }

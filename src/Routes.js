@@ -31,10 +31,11 @@ const RecibirDocumento = lazy(() => import('./modulos/recibir-documento/index'))
 const TerminarDocumento = lazy(() => import('./modulos/terminar-documento/index'));
 const MisDocumentos = lazy(() => import('./modulos/mis-documentos/index'));
 const Usuario = lazy(() => import('./modulos/usuario/index'));
+const AgregarUsuario = lazy(() => import('./modulos/usuario/components/agregar-usuario'));
 const Departamento = lazy(() => import('./modulos/departamento/index'));
 const TipoDocumento = lazy(() => import('./modulos/tipo-documento/index'));
 const Documentos = lazy(() => import('./modulos/documento/index'));
-const Presentacion = lazy(() => import('./modulos/presentacion/index'));
+
 const VerEstados = lazy(() => import('./modulos/ver-estado/index'));
 const BuscarDocumentoDepartamento = lazy(() => import('./modulos/buscar-departamento/index'));
 const BuscarDocumentoUsuario = lazy(() => import('./modulos/buscar-usuario/index'));
@@ -133,10 +134,10 @@ const Routes = (props) => {
                                     <PrivateRoute exact auth={user} perfil={["ADMINISTRADOR"]} path="/ver-estados/:id_documento" component={waitFor(VerEstados)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/mis-documentos" component={waitFor(MisDocumentos)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/usuario" component={waitFor(Usuario)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/usuarios/agregar-usuario" component={waitFor(AgregarUsuario)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/departamento" component={waitFor(Departamento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/tipo-documento" component={waitFor(TipoDocumento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/documentos" component={waitFor(Documentos)} />
-                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/presentacion" component={waitFor(Presentacion)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-departamento" component={waitFor(BuscarDocumentoDepartamento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-usuario" component={waitFor(BuscarDocumentoUsuario)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-codigo" component={waitFor(BuscarDocumentoCodigo)} />

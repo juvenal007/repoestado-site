@@ -103,12 +103,13 @@ const FieldColor = ({value, classTxt}) => (
     </td>
 )
 
-const FieldTags = ({value, classTxt}) => (
+const FieldTags = ({value, classTxt, color}) => (
 
     <td className={classTxt}>
         {
-            value.map((ele, index) =>{
-                return(<div className="badge badge-info mr-1" key={index}>{ele}</div> )
+            value.map((ele, index) =>{                
+
+                return(<div className={`badge badge-${color} mr-1`} key={index}>{ele}</div> )
             })
         }
     </td>
@@ -327,19 +328,21 @@ class SmartTable extends Component {
                 let url = `${this.props.delete_btn.path}/${key}`;
                 this.handleRefresh(false);
                
-                GetApiData(url, 'DELETE', null, (status, data, msg) => { 
+                GetApiData(url, 'DELETE', null, (status, data, message) => { 
                     if (status) {
                         // let msg = 'El Registro se Elimino Correctamente';
-                        toast(msg, {
-                            type: "success",
-                            position: "bottom-center"
-                        });
+                        swal({
+                            title: "Correcto.",        
+                            text: message,
+                            icon: "success",
+                         });
                         this.reloadDataTable();
                     } else {
-                        toast(msg, {
-                            type: "error",
-                            position: "bottom-center"
-                        });
+                        swal({
+                            title: "Error.",        
+                            text: message,
+                            icon: "error",
+                         });
                     }
                     this.handleRefresh(true);
                 });
@@ -619,6 +622,7 @@ class SmartTable extends Component {
                                                 if(show){
                                                     let type = col.type;
                                                     let val = item[col.field];
+                                                    
                                                     if(col.hasOwnProperty('deep') && col.deep !== ''){
                                                         const empty = (col.hasOwnProperty('empty') && col.empty !== '')?col.empty:"N/D";
                                                         val = _.get(item,`${col.deep}.${col.field}`, empty);
@@ -647,8 +651,9 @@ class SmartTable extends Component {
                                                             let color = item[col.field_color];
                                                             return (<FieldStatus value={val} key={e} classTxt={class_txt} color={color}/>)
                                                         case 'tags':
+                                                            let color2 = col.color;
                                                             val = !isNaN(val)?val.toString():val;
-                                                            return(<FieldTags value={val.split(',')} key={e} classTxt={class_txt}/>);
+                                                            return(<FieldTags value={val.split(',')} key={e} classTxt={class_txt} color={color2}/>);
                                                         case 'foreignMulti':
                                                             val = item[col.field_description];
                                                             return(<FieldTags value={val.split(',')} key={e} classTxt={class_txt}/>);
