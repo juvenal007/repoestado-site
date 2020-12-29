@@ -20,10 +20,11 @@ import getApi from '../../../utils/api/index';
 import Estado from "./estado";
 import Tiempo from "./tiempo";
 
-const TablaDocumento = ({ showDocumentos, cargaEstados, documentos }) => {
+const TablaDocumento = ({ showDocumentos, cargaEstados, documentos, handleRefresh }) => {
 
    // STATES DEL COMPONENTE
    const [idCard] = useState("card-id-" + new Date().getTime());
+   const [user] = useState(JSON.parse(localStorage.getItem("user")));
    const [classRowActive] = useState(null);
 
    const [archivo, setArchivo] = useState({});
@@ -38,7 +39,7 @@ const TablaDocumento = ({ showDocumentos, cargaEstados, documentos }) => {
       }
    }
 
-   const getArchivo = (id) => {      
+   const getArchivo = (id) => {
       const url = `archivo/ver_archivo/${id}`;
       getApi(url, "GET", null, (status, data, message) => {
          console.log(status, data, message);
@@ -49,7 +50,7 @@ const TablaDocumento = ({ showDocumentos, cargaEstados, documentos }) => {
          window.open(`${url}${data.archivo_url}`);
       });
    };
-   const getPdf = (id) => {      
+   const getPdf = (id) => {
       const url = `archivo/ver_folio/${id}`;
       getApi(url, "GET", null, (status, data, message) => {
          console.log(status, data, message);
@@ -60,12 +61,18 @@ const TablaDocumento = ({ showDocumentos, cargaEstados, documentos }) => {
          window.open(`${url}${data.archivo_url}`);
       });
    };
-
-
-   const onClickAddArchivo = (e, id) => {
-      e.preventDefault();
-      let user = localStorage.getItem("user");
+   const deleteDocumento = (id) => {
+      const url = `documento/delete/${id}`;
+      getApi(url, "DELETE", null, (status, data, message) => {
+         console.log(status, data, message);
+         if (!status) {
+            return console.log(message);
+         }
+         handleRefresh();
+      });
    };
+
+
    const onClickVerArchivo = (e, id) => {
       e.preventDefault();
       getArchivo(id);
@@ -76,10 +83,10 @@ const TablaDocumento = ({ showDocumentos, cargaEstados, documentos }) => {
    };
    const onClickDelete = (e, id) => {
       e.preventDefault();
-      let user = localStorage.getItem("user");
+      deleteDocumento(id);
    };
 
-   
+
 
 
    return (
@@ -155,25 +162,26 @@ const TablaDocumento = ({ showDocumentos, cargaEstados, documentos }) => {
                                              >
                                                    <em className={"fa fa-file-pdf"}></em>
                                                 </Button></ToolTip>
-                                             <ToolTip
-                                                idelement={v4()}
-                                                placement={"top"}
-                                                content={"Agregar Documentos"}
-                                             ><Button
-                                                key={index + "-button" + v4()}
-                                                outline
-                                                className="btn-table btn btn-xs mr-1"
-                                                color="secondary"
-                                                type="button"
-                                                onClick={(e) => onClickAddArchivo(e, item.id)}
-                                             >
-                                                   <em className={"fa fa-edit"}></em>
-                                                </Button></ToolTip>
+                                             {user.usuario_tipo === 'ADMINISTRADOR' ?
+                                                <ToolTip
+                                                   idelement={v4()}
+                                                   placement={"top"}
+                                                   content={"Eliminar Documento"}
+                                                ><Button
+                                                   key={index + "-button" + v4()}
+                                                   outline
+                                                   className="btn-table btn btn-xs mr-1"
+                                                   color="secondary"
+                                                   type="button"
+                                                   onClick={(e) => onClickDelete(e, item.id)}
+                                                >
+                                                      <em className={"fa fa-times"}></em>
+                                                   </Button></ToolTip> : null}
                                           </td></tr>);
                                  }) : cargaEstados ? <tr>
                                     < td className='text-center' colSpan="8"><h3>Sin datos</h3></td>
                                  </tr> : null}
-                                 </tbody>
+                              </tbody>
                            </Table>
                         </div>
                      </Card>

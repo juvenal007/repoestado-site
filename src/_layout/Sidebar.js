@@ -12,6 +12,7 @@ import SidebarRun from './Sidebar.run';
 import SidebarUserBlock from './SidebarUserBlock';
 
 import Menu from '../Menu';
+import MenuUsuario from '../MenuUsuario';
 
 /** Component to display headings on sidebar */
 const SidebarItemHeader = ({ item }) => (
@@ -57,10 +58,20 @@ const SidebarSubHeader = ({ item }) => (
 class Sidebar extends Component {
 
     state = {
+        menu: Menu,
         collapse: {}
     }
 
     componentDidMount() {
+
+        let user = localStorage.getItem("user");
+        user = (user === "undefined" || user === undefined)?null:JSON.parse(user);
+
+        if (user !== null){
+            if(user.usuario_tipo === "USUARIO"){
+                this.setState({menu: MenuUsuario});
+            }           
+        }
         // pass navigator to access router api
         SidebarRun(this.navigator, this.closeSidebar);
         // prepare the flags to handle menu collapsed states
@@ -77,7 +88,7 @@ class Sidebar extends Component {
     /** prepare initial state of collapse menus. Doesnt allow same route names */
     buildCollapseList = () => {
         let collapse = {};
-        Menu
+        this.state.menu
             .filter(({ heading }) => !heading)
             .forEach(({ name, path, submenu }) => {
                 collapse[name] = this.routeActive(submenu ? submenu.map(({ path }) => path) : path)
@@ -136,7 +147,7 @@ class Sidebar extends Component {
 
                             { /* Iterates over all sidebar items */}
                             {
-                                Menu.map((item, i) => {
+                                this.state.menu.map((item, i) => {
                                     // heading
                                     if (this.itemType(item) === 'heading')
                                         return (

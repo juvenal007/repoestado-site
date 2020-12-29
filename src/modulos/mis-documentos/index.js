@@ -58,6 +58,25 @@ const MisDocumentos = (props) => {
     getDocumentos();
   }, []);
 
+  const handleRefresh = () => {
+    setIsReady(false);
+    setCargaEstados(false);
+    const getDocumentos = () => {
+      const url = `documento/list/mis-documentos/usuario/${user.id}`;
+      getApi(url, "GET", null, (status, data, message) => {
+        console.log(status, data, message);
+        if (!status) {
+          return console.log(message);
+        }        
+        setDocumentos(data);
+        setIsReady(true);
+        setCargaEstados(true);
+      });
+    };
+
+    getDocumentos();
+  }
+
 
   return (
     <ContentWrapper>
@@ -68,7 +87,8 @@ const MisDocumentos = (props) => {
         <TablaDocumento
           showDocumentos={showDocumentos}
           cargaEstados={cargaEstados}
-          documentos={documentos}
+          documentos={documentos}       
+          handleRefresh={handleRefresh}  
         />
       </div>
 

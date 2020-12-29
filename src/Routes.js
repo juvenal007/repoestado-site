@@ -128,11 +128,11 @@ const Routes = (props) => {
                                 <Switch location={props.location}>
                                     <Route path="/login" component={waitFor(Login)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR", "USUARIO"]} path="/home-principal" component={waitFor(HomePrincipal)} />
-                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/enviar-documento" component={waitFor(EnviarDocumento)} />
-                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/recibir-documento" component={waitFor(RecibirDocumento)} />
-                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/terminar-documento" component={waitFor(TerminarDocumento)} />
-                                    <PrivateRoute exact auth={user} perfil={["ADMINISTRADOR"]} path="/ver-estados/:id_documento" component={waitFor(VerEstados)} />
-                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/mis-documentos" component={waitFor(MisDocumentos)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR", "USUARIO"]} path="/enviar-documento" component={waitFor(EnviarDocumento)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR", "USUARIO"]} path="/recibir-documento" component={waitFor(RecibirDocumento)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR", "USUARIO"]} path="/terminar-documento" component={waitFor(TerminarDocumento)} />
+                                    <PrivateRoute exact auth={user} perfil={["ADMINISTRADOR", "USUARIO"]} path="/ver-estados/:id_documento" component={waitFor(VerEstados)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR", "USUARIO"]} path="/mis-documentos" component={waitFor(MisDocumentos)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/usuario" component={waitFor(Usuario)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/usuarios/agregar-usuario" component={waitFor(AgregarUsuario)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/departamento" component={waitFor(Departamento)} />
@@ -141,7 +141,6 @@ const Routes = (props) => {
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-departamento" component={waitFor(BuscarDocumentoDepartamento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-usuario" component={waitFor(BuscarDocumentoUsuario)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-codigo" component={waitFor(BuscarDocumentoCodigo)} />
-
                                 
                                     <Redirect to="/404" />
                                 </Switch>

@@ -3,6 +3,8 @@ import { Badge } from 'reactstrap';
 
 const Estado = ({ estado }) => {
 
+    
+
 
     const [color, setColor] = useState('');
 

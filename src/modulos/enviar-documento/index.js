@@ -86,7 +86,7 @@ const EnviarDocumento = () => {
       const mostrarDestinatario = async () => {
          setShowDestinatarios(false);
          if (documento.nombre === 'MEMORÁNDUM' || documento.nombre === 'CIRCULAR' || documento.nombre === 'OTRO') {
-            setShowDestinatarios(true);
+            setShowDestinatarios(false);
             getDestinatariosDepto();
          }
       }

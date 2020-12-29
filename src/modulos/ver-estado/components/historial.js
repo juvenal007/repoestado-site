@@ -24,9 +24,9 @@ const Historial = ({ estados, documento }) => {
                   <div className="timeline-card">
                     <div className="popover left">
                       <h4 className="popover-header">
-                        {`${item["usuario"].usuario_nombre.substr(0,10)} ${item["usuario"].usuario_ape_paterno}`}
-                        <span className="float-right">
-                        {item.diferenciaMinutos && (
+                        {`${item["usuario"].usuario_nombre.substr(0, 10)} ${item["usuario"].usuario_ape_paterno}`}
+                        {item.estado_nombre === 'TERMINADO' ? null : <span className="float-right">
+                          {item.diferenciaMinutos && (
                             <Tiempo
                               meses={item.diferenciaMeses}
                               dias={item.diferenciaDias}
@@ -34,7 +34,7 @@ const Historial = ({ estados, documento }) => {
                               minutos={item.diferenciaMinutos}
                             />
                           )}
-                      </span>
+                        </span>}
                       </h4>
                       <div className="arrow"></div>
                       <div className="popover-body">
@@ -78,7 +78,7 @@ const Historial = ({ estados, documento }) => {
                     <div className="popover left">
                       <h4 className="popover-header">
                         {`${item["usuario"].usuario_nombre} ${item["usuario"].usuario_ape_paterno}`}
-                        <span className="float-right">
+                        {item.estado_nombre === 'TERMINADO' ? null : <span className="float-right">
                           {item.diferenciaMinutos && (
                             <Tiempo
                               meses={item.diferenciaMeses}
@@ -87,7 +87,7 @@ const Historial = ({ estados, documento }) => {
                               minutos={item.diferenciaMinutos}
                             />
                           )}
-                        </span>
+                        </span>}
                       </h4>
                       <div className="arrow"></div>
                       <div className="popover-body">
@@ -133,16 +133,16 @@ const Historial = ({ estados, documento }) => {
                   <div className="popover right">
                     <h4 className="popover-header">
                       {`${item["usuario"].usuario_nombre} ${item["usuario"].usuario_ape_paterno}`}
-                      <span className="float-right">
-                      {item.diferenciaMinutos && (
-                            <Tiempo
-                              meses={item.diferenciaMeses}
-                              dias={item.diferenciaDias}
-                              horas={item.diferenciaHoras}
-                              minutos={item.diferenciaMinutos}
-                            />
-                          )}
-                      </span>
+                      {item.estado_nombre === 'TERMINADO' ? null : <span className="float-right">
+                        {item.diferenciaMinutos && (
+                          <Tiempo
+                            meses={item.diferenciaMeses}
+                            dias={item.diferenciaDias}
+                            horas={item.diferenciaHoras}
+                            minutos={item.diferenciaMinutos}
+                          />
+                        )}
+                      </span>}
                     </h4>
                     <div className="arrow"></div>
                     <div className="popover-body">

@@ -74,9 +74,7 @@ const RecibirDocumento = () => {
                title: "Correcto",
                text: message,
                icon: "success"
-            }).then(
-               
-            );            
+            })          
          } else {
             swal({
                title: "Error",

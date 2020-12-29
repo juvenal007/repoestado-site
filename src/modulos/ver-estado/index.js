@@ -19,7 +19,7 @@ const VerEstado = (props) => {
     const [cargaEstados, setCargaEstados] = useState(false);
     const [classCard, setClassCard] = useState('card card-default whirl double-up');
     useEffect(() => {
-        const getEstados = async () => {
+        const getEstados = () => {
             const url = `/estado/list/${idUrl}`;
             getApi(url, "GET", null, (status, data, message) => {
                 console.log(status, data, message);
