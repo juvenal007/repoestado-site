@@ -106,7 +106,7 @@ const Menu = [
             {
                 name: 'Solicitudes',
                 translate: 'sidebar.nav.reportes.REPORTE_DOCUMENTO',
-                path: '/administracion/reporte-documento'
+                path: '/administracion/reporte'
             },            
         ]
     },

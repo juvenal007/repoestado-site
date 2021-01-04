@@ -5,7 +5,7 @@ import {
 } from "reactstrap";
 import Select from "react-select";
 import getApi from "../../utils/api/index";
-
+import { v4 } from "uuid";
 
 
 import _ from "lodash";
@@ -52,13 +52,14 @@ const BuscarPorDepartamento = (props) => {
       getApi(url, "GET", null, (status, data, message) => {
         console.log(status, data, message);
         if (!status) {
-          return console.log(message);        }      
+          return console.log(message);
+        }
         setSelectDepartamentos(parseSelectDepto(data));
         setIsReady(true);
       });
     };
     getDepartamentos();
-  }, []); 
+  }, []);
 
   const getDocumentos = (departamento_id) => {
     const url = `/documento/list/mis-documentos/departamento/${departamento_id}`;
@@ -109,6 +110,7 @@ const BuscarPorDepartamento = (props) => {
         </div>
       </div>
       <TablaDocumento
+        key={v4()}
         showDocumentos={showDocumentos}
         cargaEstados={cargaEstados}
         documentos={documentos}

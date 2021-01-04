@@ -8,7 +8,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 //COMPONENTES
 import TablaDocumento from '../buscar-departamento/components/tabla-documento';
-
+import { v4 } from "uuid";
 //ESTILOS CSS
 
 import "../../styles/custom.css";
@@ -74,15 +74,15 @@ const BuscarPorCodigo = (props) => {
           text: message,
           icon: "error"
         });
-        
+
         setCodigo('');
         setShowDocumentos(false);
         return null;
-      }    
+      }
       let documentos = [];
-        documentos.push(data);     
-        console.log(documentos);
-        setDocumentos(documentos);
+      documentos.push(data);
+      console.log(documentos);
+      setDocumentos(documentos);
       setCargaEstados(true);
     });
   };
@@ -119,6 +119,7 @@ const BuscarPorCodigo = (props) => {
         </div>
       </div>
       <TablaDocumento
+        key={v4()}
         showDocumentos={showDocumentos}
         cargaEstados={cargaEstados}
         documentos={documentos}

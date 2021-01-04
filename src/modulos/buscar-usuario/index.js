@@ -4,6 +4,7 @@ import { FormGroup } from "reactstrap";
 import Select from "react-select";
 import getApi from "../../utils/api/index";
 import _ from "lodash";
+import { v4 } from "uuid";
 
 //COMPONENTES
 import TablaDocumento from '../buscar-departamento/components/tabla-documento';
@@ -109,6 +110,7 @@ const BuscarPorUsuario = (props) => {
         </div>
       </div>
       <TablaDocumento
+        key={v4()}
         showDocumentos={showDocumentos}
         cargaEstados={cargaEstados}
         documentos={documentos}

@@ -40,6 +40,7 @@ const VerEstados = lazy(() => import('./modulos/ver-estado/index'));
 const BuscarDocumentoDepartamento = lazy(() => import('./modulos/buscar-departamento/index'));
 const BuscarDocumentoUsuario = lazy(() => import('./modulos/buscar-usuario/index'));
 const BuscarDocumentoCodigo = lazy(() => import('./modulos/buscar-codigo/index'));
+const ReporteExcel = lazy(() => import('./modulos/reporte/index'));
 
 
 
@@ -141,6 +142,7 @@ const Routes = (props) => {
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-departamento" component={waitFor(BuscarDocumentoDepartamento)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-usuario" component={waitFor(BuscarDocumentoUsuario)} />
                                     <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/buscar-codigo" component={waitFor(BuscarDocumentoCodigo)} />
+                                    <PrivateRoute auth={user} perfil={["ADMINISTRADOR"]} path="/administracion/reporte" component={waitFor(ReporteExcel)} />
                                 
                                     <Redirect to="/404" />
                                 </Switch>

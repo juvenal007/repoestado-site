@@ -23,7 +23,7 @@ import Tiempo from "./tiempo";
 const TablaDocumento = ({ showDocumentos, cargaEstados, documentos, handleRefresh }) => {
 
    // STATES DEL COMPONENTE
-   const [idCard] = useState("card-id-" + new Date().getTime());
+   const [idCard] = useState("card-id-" + v4());
    const [user] = useState(JSON.parse(localStorage.getItem("user")));
    const [classRowActive] = useState(null);
 

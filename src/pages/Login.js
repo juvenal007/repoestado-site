@@ -6,7 +6,8 @@ import { toast } from 'react-toastify';
 import 'parsleyjs/dist/parsley.min.js';
 
 import getApi from '../utils/api/index';
-
+import swal from 'sweetalert';
+import 'sweetalert2/src/sweetalert2.scss'
 
 
 
@@ -80,10 +81,18 @@ class Login extends Component {
                     this.props.history.push(`home-principal`);               
             } else {
                 console.log(msg)
-                toast("Error en el proceso de login", {
-                    type: "error",
-                    position: "bottom-center"
-                });
+                this.setState({show: true});
+                this.setState( {formLogin: {
+                    usuario: '',
+                    password: ''
+                }});
+                swal({
+                    title: 'Datos Incorrectos',
+                    text: 'Verifique sus credenciales',
+                    icon: "error",
+                  });
+
+
             }
             // this.detailsLoading(false);
             console.log(status, data, msg);
@@ -115,7 +124,7 @@ class Login extends Component {
                                     <Input type="text"
                                         name="usuario"
                                         className="border-right-0"
-                                        placeholder="Enter Username"
+                                        placeholder="Ingrese Usuario"
                                         // invalid={this.hasError('formLogin','email','required')||this.hasError('formLogin','email','email')}
                                         onChange={this.validateOnChange}                                        
                                         value={this.state.formLogin.usuario}/>
@@ -134,7 +143,7 @@ class Login extends Component {
                                         id="id-password"
                                         name="password"
                                         className="border-right-0"
-                                        placeholder="Password"
+                                        placeholder="Contraseña"
                                         invalid={this.hasError('formLogin','password','required')}
                                         onChange={this.validateOnChange}
                                         data-validate='["required"]'

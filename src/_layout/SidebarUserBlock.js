@@ -7,7 +7,15 @@ import { connect } from 'react-redux';
 class SidebarUserBlock extends Component {
 
     state = {
-        showUserBlock: true
+        showUserBlock: true,
+        user : ''
+    }
+
+    componentDidMount()
+    {
+        this.setState({
+            user : JSON.parse(localStorage.getItem("user"))
+        })
     }
 
     componentWillReceiveProps(newProps) {
@@ -15,6 +23,8 @@ class SidebarUserBlock extends Component {
             this.setState({ showUserBlock: newProps.showUserBlock })
         }
     }
+
+    
 
     render() {
         return (
@@ -30,8 +40,8 @@ class SidebarUserBlock extends Component {
                        </div>
                        {/* Name and Job */}
                        <div className="user-block-info">
-                          <span className="user-block-name">Juvenal Salas</span>
-                          <span className="user-block-role">Administrador</span>
+                          <span className="user-block-name">{`${this.state.user.usuario_nombre} ${this.state.user.usuario_ape_paterno}`}</span>
+                          <span className="user-block-role">{`${this.state.user.usuario_tipo}`}</span>
                        </div>
                     </div>
                 </div>

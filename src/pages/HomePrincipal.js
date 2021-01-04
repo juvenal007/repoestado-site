@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ContentWrapper from '../_layout/ContentWrapper';
 import { Container, Row, Col, Card, CardHeader, CardBody } from 'reactstrap';
 import '../styles/home.css';
@@ -6,9 +6,47 @@ import FlotChart from './Flot';
 import { ChartSpline, ChartArea, ChartBar, ChartBarStacked, ChartDonut, ChartLine, ChartPie } from './ChartFlot.setup.js';
 // COMPONENTES
 import Proyectos from './components/proyectos';
-
+import getApi from '../utils/api/index';
 const HomePrincipal = () => {
 
+    const [datosBarra, setDatosBarra] = useState([]);
+
+    const [datosCircular, setdatosCircular] = useState([]);
+
+    useEffect(() => {
+        const getDocPendiente = () => {
+            const url = `dashboard/barra`;
+            getApi(url, 'GET', null, (status, data, message) => {
+                console.log(status, data, message);
+                if (!status) {
+                    return console.log(message);
+                }
+                setDatosBarra([{
+                    label: "documentos",
+                    color: "#9cd159",
+                    data: data
+                }]);
+            });
+        }
+        getDocPendiente();
+    }, []);
+
+    useEffect(() => {
+
+        const getDocPendienteCircular = () => {
+            const url = `dashboard/circular`;
+            getApi(url, 'GET', null, (status, data, message) => {
+                console.log(status, data, message);
+                if (!status) {
+                    return console.log(message);
+                }
+                setdatosCircular(data);
+                console.log(data);
+
+            });
+        }
+        getDocPendienteCircular();
+    }, []);
 
     return (
         <ContentWrapper unwrap>
@@ -95,7 +133,7 @@ const HomePrincipal = () => {
                     <Card className="card-default">
                         <CardHeader>Departamentos con documentos pendientes</CardHeader>
                         <CardBody>
-                            <FlotChart options={ChartBar.options} data={ChartBar.data} className="flot-chart" height="250px" />
+                            {datosBarra && <FlotChart options={ChartBar.options} data={datosBarra} className="flot-chart" height="250px" />}
                         </CardBody>
                     </Card>
                 </Col>
@@ -103,7 +141,7 @@ const HomePrincipal = () => {
                     <Card className="card-default">
                         <CardHeader>Pie</CardHeader>
                         <CardBody>
-                            <FlotChart options={ChartPie.options} data={ChartPie.data} className="flot-chart" height="250px" />
+                            {Object.keys(datosCircular).length > 0 ? <FlotChart options={ChartPie.options} data={datosCircular} className="flot-chart" height="250px" /> : null}
                         </CardBody>
                     </Card>
                 </Col>

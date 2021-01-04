@@ -20,6 +20,7 @@ const EnviarDocumento = () => {
    const [isReadyTipoDoc, setIsReadyTipoDoc] = useState(false);
    const [isReadyDestDepto, setIsReadyDestDepto] = useState(false);
    const [isReadyDestUser, setIsReadyDestUser] = useState(true);
+   const [dataValue, setdataValue] = useState('');
 
    // SHOW DESTINATARIOS
    const [showDestinatarios, setShowDestinatarios] = useState(false);
@@ -52,6 +53,12 @@ const EnviarDocumento = () => {
    const [sizeFile, setSizeFile] = useState(0);
    const [fileName, setFileName] = useState('');
 
+   const limpiarEnviar = () => {
+      setNombre('');
+      setDescripcion('');
+      setLabelFile('Elegir Archivo');
+      setdataValue('');      
+   }
 
 
    // STATE GLOBAL DEL DESTINATARIO   
@@ -143,6 +150,7 @@ const EnviarDocumento = () => {
 
    const handleChangeDocumento = e => {
       setDocumento({ id: e.value, nombre: e.label });
+      setdataValue(e.label);
       setUsuarios([]);      
       setDepartamento({});
       setUsuario({ label: 'Seleccione Usuario' });
@@ -182,6 +190,17 @@ const EnviarDocumento = () => {
 
    const onSubmit = e => {
       e.preventDefault();
+
+      if(nombre.length === 0 || descripcion.length === 0 || fileName.length === 0 || dataValue.length === 0)
+      {
+         swal({
+            title: 'Error',
+            text: 'Faltan Datos',
+            icon: "error",
+         });
+         return null;
+      }
+
       let user = window.localStorage.getItem('user');
       let url = `/documento/store`;
       let formData = new FormData();
@@ -197,20 +216,21 @@ const EnviarDocumento = () => {
       formData.set('destinatarios', JSON.stringify(destinatariosUsuarios));
 
       console.log(fileDoc);
-      getApi(url, 'MULTIPART', formData, (status, data, message) => {
-         
+      getApi(url, 'MULTIPART', formData, (status, data, message) => {   
+         limpiarEnviar();
          if (status) {
+            
             swal({
                title: "Aceptado.",        
                text: message,
                icon: "success",
             });
             window.open(data.url_completa, "Diseño Web", "width=800, height=600");
-         } else {
+         } else {     
             swal({
                title: 'Error',
                text: message,
-               icon: "danger",
+               icon: "error",
             });
          }
       });
@@ -249,7 +269,7 @@ const EnviarDocumento = () => {
       return parseFloat((size / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
    }
    const handleChangeNombre = e => {
-      setNombre(e.target.value);
+      setNombre(e.target.value);      
    }
    const handleChangeDescripcion = e => {
       setDescripcion(e.target.value);
@@ -289,13 +309,13 @@ const EnviarDocumento = () => {
                                        isLoading={!isReadyTipoDoc}
                                        loadingMessage={() => 'Cargando...'}
                                        noOptionsMessage={() => 'Sin Resultados...'}
-                                       isRequired={true}
+                                       isRequired={true}                                       
                                     />
                                     <span className="form-text text-grey">Ingrese el tipo de documento.</span>
                                  </div>
                                  <label className="col-xl-1 col-form-label text-input">Nombre</label>
                                  <div className="col-xl-5">
-                                    <Input onChange={handleChangeNombre} type="text" placeholder="Nombre" />
+                                    <Input onChange={handleChangeNombre} type="text" placeholder="Nombre" value={nombre} />
                                     <span className="form-text text-grey">Ingrese el nombre principal del documento.</span>
                                  </div>
                               </FormGroup>
@@ -309,7 +329,7 @@ const EnviarDocumento = () => {
                               <FormGroup row className='mb-2'>
                                  <label className="col-xl-2 col-form-label text-input">Descripción</label>
                                  <div className="col-xl-10">
-                                    <textarea onChange={handleChangeDescripcion} rows="10" className="form-control note-editor note-editor-margin borde-grey "></textarea>
+                                    <textarea onChange={handleChangeDescripcion} rows="10" className="form-control note-editor note-editor-margin borde-grey" value={descripcion}></textarea>
                                     <span className="form-text text-grey">Ingrese una breve descripción del archivo adjunto - <span className='text-bold'>Limite maximo 200 caracteres.</span></span>
                                  </div>
                               </FormGroup>
